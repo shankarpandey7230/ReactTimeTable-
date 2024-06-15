@@ -15,7 +15,20 @@ function App() {
     };
     setTaskList([...taskList, obj]);
   };
-  console.log(taskList);
+  // console.log(taskList);
+  const switchTask = (id, type) => {
+    //   console.log(id, type);
+
+    setTaskList(
+      taskList.map((item) => {
+        // console.log(item);
+        if (item.id === id) {
+          item.type = type;
+        }
+        return item;
+      })
+    );
+  };
 
   const randomId = (length = 6) => {
     const str =
@@ -38,7 +51,7 @@ function App() {
         <Form addTaskList={addTaskList} />
 
         {/* <!-- tables --> */}
-        <Table taskList={taskList} />
+        <Table taskList={taskList} switchTask={switchTask} />
 
         <div className="alert alert-success">
           The total hours allocated = <span id="ttlHrs">0</span> hrs

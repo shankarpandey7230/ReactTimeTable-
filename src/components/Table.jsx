@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Table = ({ taskList }) => {
+const Table = ({ taskList, switchTask }) => {
   const entryList = taskList.filter((item) => item.type === 'entry');
   const badList = taskList.filter((item) => item.type === 'bad');
   return (
@@ -19,7 +19,7 @@ const Table = ({ taskList }) => {
                   <td>{item.hr}</td>
                   <td className="text-end">
                     <button
-                      onclick='handleDelete("${
+                      onClick='handleDelete("${
         item.id
       }")'
                       type="button"
@@ -28,9 +28,7 @@ const Table = ({ taskList }) => {
                       <i className="fa-solid fa-trash"></i>
                     </button>
                     <button
-                      onclick="switchTask('${
-        item.id
-      }','bad')"
+                      onClick={() => switchTask(item.id, 'bad')}
                       type="button"
                       className="btn btn-success"
                     >
@@ -67,9 +65,7 @@ const Table = ({ taskList }) => {
                       <i className="fa-solid fa-trash"></i>
                     </button>
                     <button
-                      onclick="switchTask('${
-        item.id
-      }','entry')"
+                      onClick={() => switchTask(item.id, 'entry')}
                       type="button"
                       className="btn btn-secondary"
                     >

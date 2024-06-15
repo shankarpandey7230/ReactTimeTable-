@@ -13,4 +13,6 @@ Currently, two official plugins are available:
 
 # start understanding the requirements
 
-##
+## distinguish the entry list and bad list to removed
+
+## The switching functionality to add the between the function
