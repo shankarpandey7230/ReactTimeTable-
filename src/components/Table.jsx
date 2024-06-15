@@ -2,6 +2,7 @@ import React from 'react';
 
 const Table = ({ taskList }) => {
   const entryList = taskList.filter((item) => item.type === 'entry');
+  const badList = taskList.filter((item) => item.type === 'bad');
   return (
     <div className="row mt-5">
       <div className="col-md">
@@ -48,7 +49,37 @@ const Table = ({ taskList }) => {
 
         {/* <!-- Bad List table --> */}
         <table className="table table-striped table-hover border">
-          <tbody id="badList"></tbody>
+          <tbody id="badList">
+            {badList.map((item, i) => {
+              return (
+                <tr>
+                  <th scope="row">{i + 1}</th>
+                  <td>{item.task}</td>
+                  <td>{item.hr}</td>
+                  <td className="text-end">
+                    <button
+                      onclick='handleDelete("${
+        item.id
+      }")'
+                      type="button"
+                      className="btn btn-danger"
+                    >
+                      <i className="fa-solid fa-trash"></i>
+                    </button>
+                    <button
+                      onclick="switchTask('${
+        item.id
+      }','entry')"
+                      type="button"
+                      className="btn btn-secondary"
+                    >
+                      <i className="fa-solid fa-arrow-left"></i>
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
 
         <div className="alert alert-success">
