@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Table = ({ taskList, switchTask }) => {
+const Table = ({ taskList, switchTask, handleDelete }) => {
   const entryList = taskList.filter((item) => item.type === 'entry');
   const badList = taskList.filter((item) => item.type === 'bad');
   return (
@@ -19,9 +19,7 @@ const Table = ({ taskList, switchTask }) => {
                   <td>{item.hr}</td>
                   <td className="text-end">
                     <button
-                      onClick='handleDelete("${
-        item.id
-      }")'
+                      onClick={() => handleDelete(item.id)}
                       type="button"
                       className="btn btn-danger"
                     >
@@ -56,9 +54,7 @@ const Table = ({ taskList, switchTask }) => {
                   <td>{item.hr}</td>
                   <td className="text-end">
                     <button
-                      onclick='handleDelete("${
-        item.id
-      }")'
+                      onClick={() => handleDelete(item.id)}
                       type="button"
                       className="btn btn-danger"
                     >

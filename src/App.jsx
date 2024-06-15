@@ -29,7 +29,14 @@ function App() {
       })
     );
   };
-
+  //Delete
+  const handleDelete = (id) => {
+    //   console.log(id);
+    if (window.confirm('Are you sure to delete?')) {
+      // console.log(taskList);
+      setTaskList(taskList.filter((items) => items.id !== id));
+    }
+  };
   const randomId = (length = 6) => {
     const str =
       'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890';
@@ -51,7 +58,11 @@ function App() {
         <Form addTaskList={addTaskList} />
 
         {/* <!-- tables --> */}
-        <Table taskList={taskList} switchTask={switchTask} />
+        <Table
+          taskList={taskList}
+          switchTask={switchTask}
+          handleDelete={handleDelete}
+        />
 
         <div className="alert alert-success">
           The total hours allocated = <span id="ttlHrs">0</span> hrs
