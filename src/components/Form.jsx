@@ -4,25 +4,23 @@ const Form = ({ addTaskList }) => {
   const [form, setForm] = useState({});
 
   const handleOnChange = (e) => {
-    // console.log(e);
     const { name, value } = e.target;
-    // console.log(name, value);
+
     setForm({
       ...form,
-      [name]: value,
+      [name]: name === 'hr' ? +value : value,
     });
   };
-  //   console.log(form);
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    // console.log(form);
     addTaskList(form);
   };
+
   return (
     <form
-      className="border p-5 rounded shadow-lg mt-5"
-      action="javascript:void(0)"
       onSubmit={handleOnSubmit}
+      className="border p-5 rounded shadow-lg mt-5"
     >
       <div className="row g-2">
         <div className="col-md-7">

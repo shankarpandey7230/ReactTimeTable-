@@ -1,8 +1,9 @@
 import React from 'react';
 
-const Table = ({ taskList, switchTask, handleDelete }) => {
-  const entryList = taskList.filter((item) => item.type === 'entry');
-  const badList = taskList.filter((item) => item.type === 'bad');
+const Table = ({ taskList, switchTask, handleOnDelete }) => {
+  const entryList = taskList.filter((item) => item.type === 'entry') || [];
+  const badList = taskList.filter((item) => item.type === 'bad') || [];
+
   return (
     <div className="row mt-5">
       <div className="col-md">
@@ -13,21 +14,19 @@ const Table = ({ taskList, switchTask, handleDelete }) => {
           <tbody id="entryList">
             {entryList.map((item, i) => {
               return (
-                <tr key={item.id}>
-                  <th scope="row">{i + 1}</th>
+                <tr key={item?.id}>
+                  <td>{i + 1}</td>
                   <td>{item.task}</td>
-                  <td>{item.hr}</td>
+                  <td>{item.hr}hr</td>
                   <td className="text-end">
                     <button
-                      onClick={() => handleDelete(item.id)}
-                      type="button"
+                      onClick={() => handleOnDelete(item.id)}
                       className="btn btn-danger"
                     >
                       <i className="fa-solid fa-trash"></i>
                     </button>
                     <button
                       onClick={() => switchTask(item.id, 'bad')}
-                      type="button"
                       className="btn btn-success"
                     >
                       <i className="fa-solid fa-arrow-right"></i>
@@ -46,36 +45,36 @@ const Table = ({ taskList, switchTask, handleDelete }) => {
         {/* <!-- Bad List table --> */}
         <table className="table table-striped table-hover border">
           <tbody id="badList">
-            {badList.map((item, i) => {
-              return (
-                <tr>
-                  <th scope="row">{i + 1}</th>
-                  <td>{item.task}</td>
-                  <td>{item.hr}</td>
-                  <td className="text-end">
-                    <button
-                      onClick={() => handleDelete(item.id)}
-                      type="button"
-                      className="btn btn-danger"
-                    >
-                      <i className="fa-solid fa-trash"></i>
-                    </button>
-                    <button
-                      onClick={() => switchTask(item.id, 'entry')}
-                      type="button"
-                      className="btn btn-secondary"
-                    >
-                      <i className="fa-solid fa-arrow-left"></i>
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
+            {badList.map((item, i) => (
+              <tr key={item.id}>
+                <td>{i + 1}</td>
+                <td>{item.task}</td>
+                <td>{item.hr}hr</td>
+                <td className="text-end">
+                  <button
+                    onClick={() => switchTask(item.id, 'entry')}
+                    className="btn btn-warning"
+                  >
+                    <i className="fa-solid fa-arrow-left"></i>
+                  </button>
+                  <button
+                    onClick={() => handleOnDelete(item.id)}
+                    className="btn btn-danger"
+                  >
+                    <i className="fa-solid fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
 
         <div className="alert alert-success">
-          You could have saved = <span id="savedHrsElm"></span> hr
+          You could have saved ={' '}
+          <span id="savedHrsElm">
+            {badList.reduce((acc, i) => acc + i.hr, 0)}
+          </span>{' '}
+          hr
         </div>
       </div>
     </div>
