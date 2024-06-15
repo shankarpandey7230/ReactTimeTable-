@@ -2,8 +2,32 @@ import { useState } from 'react';
 
 import './App.css';
 import Form from './components/Form';
+import Table from './components/Table';
 
 function App() {
+  const [taskList, setTaskList] = useState([]);
+  const addTaskList = (task) => {
+    // console.log(task);
+    const obj = {
+      ...task,
+      id: randomId(),
+      type: 'entry',
+    };
+    setTaskList([...taskList, obj]);
+  };
+  console.log(taskList);
+
+  const randomId = (length = 6) => {
+    const str =
+      'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890';
+    let id = '';
+    for (let i = 0; i < 6; i++) {
+      const randmIndex = Math.floor(Math.random() * str.length);
+      id += str[randmIndex];
+    }
+    return id;
+  };
+
   return (
     <div className="wrapper pt-5">
       {/* <!-- title  --> */}
@@ -11,32 +35,10 @@ function App() {
         <h1 className="text-center">Follow Time Table</h1>
 
         {/* <!-- form  --> */}
-        <Form />
+        <Form addTaskList={addTaskList} />
 
         {/* <!-- tables --> */}
-        <div className="row mt-5">
-          <div className="col-md">
-            <h3 className="text-center">Entry List</h3>
-            <hr />
-            {/* <!-- Entry list table  --> */}
-            <table className="table table-striped table-hover border">
-              <tbody id="entryList"></tbody>
-            </table>
-          </div>
-          <div className="col-md">
-            <h3 className="text-center">Bad List</h3>
-            <hr />
-
-            {/* <!-- Bad List table --> */}
-            <table className="table table-striped table-hover border">
-              <tbody id="badList"></tbody>
-            </table>
-
-            <div className="alert alert-success">
-              You could have saved = <span id="savedHrsElm"></span> hr
-            </div>
-          </div>
-        </div>
+        <Table taskList={taskList} />
 
         <div className="alert alert-success">
           The total hours allocated = <span id="ttlHrs">0</span> hrs

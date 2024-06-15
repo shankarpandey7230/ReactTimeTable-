@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Form = () => {
+const Form = ({ addTaskList }) => {
   const [form, setForm] = useState({});
 
   const handleOnChange = (e) => {
@@ -12,12 +12,17 @@ const Form = () => {
       [name]: value,
     });
   };
-  console.log(form);
+  //   console.log(form);
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    // console.log(form);
+    addTaskList(form);
+  };
   return (
     <form
       className="border p-5 rounded shadow-lg mt-5"
       action="javascript:void(0)"
-      onsubmit="handleSubmit(this)"
+      onSubmit={handleOnSubmit}
     >
       <div className="row g-2">
         <div className="col-md-7">
